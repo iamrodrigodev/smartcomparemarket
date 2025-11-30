@@ -1,0 +1,2827 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://smartcompare.com/ontologia#"
+     xml:base="http://smartcompare.com/ontologia"
+     xmlns:sc="http://smartcompare.com/ontologia#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+    <owl:Ontology rdf:about="http://smartcompare.com/ontologia">
+        <rdfs:comment>Ontología SmartCompareMarket - Mercado semántico con comparación inteligente de productos</rdfs:comment>
+        <rdfs:label>Ontología SmartCompareMarket</rdfs:label>
+        <owl:versionInfo>1.0.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartcompare.com/ontologia#contieneProducto -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#contieneProducto">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#correspondeAProducto -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#correspondeAProducto">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#esCompatibleCon -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#esCompatibleCon">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#esMejorOpcionQue -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#esMejorOpcionQue">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#esSimilarA -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#esSimilarA">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#escritoPor -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#escritoPor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#incompatibleCon -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#incompatibleCon">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:comment>Relación de incompatibilidad entre productos</rdfs:comment>
+        <rdfs:label>incompatibleCon</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#listaDeDeseos -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#listaDeDeseos">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#productoGanador -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#productoGanador">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comparacion"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#realizadoPor -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#realizadoPor">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneLineaDePedido -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneLineaDePedido">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneMarca -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneMarca">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <rdfs:comment>Relación entre producto y marca</rdfs:comment>
+        <rdfs:label>tieneMarca</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneReseña -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneReseña">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneSistemaOperativo -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneSistemaOperativo">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Sistema_Operativo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#vendidoPor -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#vendidoPor">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Vendedor"/>
+        <rdfs:comment>Relación entre producto y vendedor</rdfs:comment>
+        <rdfs:label>vendidoPor</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#prefiereCategoria -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#prefiereCategoria">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:comment>Categoría de producto preferida por el comprador</rdfs:comment>
+        <rdfs:label>prefiereCategoria</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#historialCompras -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#historialCompras">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:comment>Productos comprados anteriormente por el usuario</rdfs:comment>
+        <rdfs:label>historialCompras</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#esRecomendadoPara -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#esRecomendadoPara">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:comment>Producto recomendado para un comprador específico</rdfs:comment>
+        <rdfs:label>esRecomendadoPara</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#estaDentroPresupuesto -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#estaDentroPresupuesto">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:comment>Producto dentro del presupuesto del comprador</rdfs:comment>
+        <rdfs:label>estaDentroPresupuesto</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tieneMejorRAMQue -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneMejorRAMQue">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:comment>Indica que un producto electrónico tiene más RAM que otro</rdfs:comment>
+        <rdfs:label>tieneMejorRAMQue</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tieneMejorAlmacenamientoQue -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneMejorAlmacenamientoQue">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:comment>Indica que un producto tiene más almacenamiento que otro</rdfs:comment>
+        <rdfs:label>tieneMejorAlmacenamientoQue</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tieneMejorPantallaQue -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneMejorPantallaQue">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:comment>Indica que un producto tiene pantalla más grande que otro</rdfs:comment>
+        <rdfs:label>tieneMejorPantallaQue</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#esEquivalenteTecnico -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#esEquivalenteTecnico">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:comment>Productos con especificaciones técnicas equivalentes</rdfs:comment>
+        <rdfs:label>esEquivalenteTecnico</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tieneCaracteristica -->
+
+    <owl:ObjectProperty rdf:about="http://smartcompare.com/ontologia#tieneCaracteristica">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+        <rdfs:comment>Relación entre producto y sus características</rdfs:comment>
+        <rdfs:label>tieneCaracteristica</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Datos_de_pedido -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#Datos_de_pedido">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Datos_de_usuario -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#Datos_de_usuario"/>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#DetallesModa -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#DetallesModa">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#EspecificacionesTecnicas -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#EspecificacionesTecnicas">
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#General -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#General"/>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#cantidadProducto -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#cantidadProducto">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#emailUsuario -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#emailUsuario">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_usuario"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#estaDisponible -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#estaDisponible">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment>Indica si el producto está disponible</rdfs:comment>
+        <rdfs:label>estaDisponible</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#fechaPedido -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#fechaPedido">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#fechaRegistro -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#fechaRegistro">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_usuario"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#numeroSeguimiento -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#numeroSeguimiento">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#precioUnitarioSnapshot -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#precioUnitarioSnapshot">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#subtotalDetalle -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#subtotalDetalle">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#textoComentario -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#textoComentario">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneAlmacenamiento_GB -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneCalificacion -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneCalificacion">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Calificación promedio del producto</rdfs:comment>
+        <rdfs:label>tieneCalificacion</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneColor -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneColor">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#DetallesModa"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Moda"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneDescripcion -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneDescripcion">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Descripción del producto</rdfs:comment>
+        <rdfs:label>tieneDescripcion</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneMaterial -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneMaterial">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#DetallesModa"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Moda"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneNombre -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneNombre">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Nombre del producto</rdfs:comment>
+        <rdfs:label>tieneNombre</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tienePrecio -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tienePrecio">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Precio del producto</rdfs:comment>
+        <rdfs:label>tienePrecio</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tienePulgadas -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tienePulgadas">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneRAM_GB -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneRAM_GB">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneSKU -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneSKU">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Código SKU único del producto</rdfs:comment>
+        <rdfs:label>tieneSKU</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneStock -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneStock">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#tieneTalla -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneTalla">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#DetallesModa"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Moda"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#totalPagado -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#totalPagado">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_pedido"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#presupuestoMaximo -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#presupuestoMaximo">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_usuario"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Presupuesto máximo que el comprador está dispuesto a pagar</rdfs:comment>
+        <rdfs:label>presupuestoMaximo</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#nivelInteres -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#nivelInteres">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#Datos_de_usuario"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Nivel de interés del comprador en una categoría (1-10)</rdfs:comment>
+        <rdfs:label>nivelInteres</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#procesadorModelo -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#procesadorModelo">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Modelo del procesador</rdfs:comment>
+        <rdfs:label>procesadorModelo</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#procesadorVelocidad_GHz -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#procesadorVelocidad_GHz">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Velocidad del procesador en GHz</rdfs:comment>
+        <rdfs:label>procesadorVelocidad_GHz</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tarjetaGrafica -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tarjetaGrafica">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Computadora"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Modelo de tarjeta gráfica</rdfs:comment>
+        <rdfs:label>tarjetaGrafica</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#bateriaCapacidad_mAh -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#bateriaCapacidad_mAh">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Dispositivo_Móvil"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Capacidad de batería en mAh</rdfs:comment>
+        <rdfs:label>bateriaCapacidad_mAh</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#resolucionPantalla -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#resolucionPantalla">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Resolución de pantalla (ej: 1920x1080, 4K)</rdfs:comment>
+        <rdfs:label>resolucionPantalla</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#pesoGramos -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#pesoGramos">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Peso del dispositivo en gramos</rdfs:comment>
+        <rdfs:label>pesoGramos</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#garantiaMeses -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#garantiaMeses">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Meses de garantía del producto</rdfs:comment>
+        <rdfs:label>garantiaMeses</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#tieneDescuento -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#tieneDescuento">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#General"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Porcentaje de descuento aplicado (0-100)</rdfs:comment>
+        <rdfs:label>tieneDescuento</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://smartcompare.com/ontologia#numeroNucleosCPU -->
+
+    <owl:DatatypeProperty rdf:about="http://smartcompare.com/ontologia#numeroNucleosCPU">
+        <rdfs:subPropertyOf rdf:resource="http://smartcompare.com/ontologia#EspecificacionesTecnicas"/>
+        <rdfs:domain rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment>Número de núcleos del procesador</rdfs:comment>
+        <rdfs:label>numeroNucleosCPU</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Accesorio -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Accesorio">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Administrador -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Administrador">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Audifonos -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Audifonos">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Accesorio"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Calzado -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Calzado">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Moda"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Caracteristica -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Caracteristica">
+        <rdfs:comment>Clase que representa una característica técnica de un producto</rdfs:comment>
+        <rdfs:label>Característica</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Característica_Funcional -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Característica_Funcional">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Característica_Técnica -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Característica_Técnica">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Característica_de_Diseño -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Característica_de_Diseño">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Cargador -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Cargador">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Accesorio"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Comparacion -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Comparacion">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Interacción"/>
+        <rdfs:comment>Clase que representa una comparación entre productos</rdfs:comment>
+        <rdfs:label>Comparación</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Comprador -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Comprador">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Computadora -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Computadora">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <owl:disjointWith rdf:resource="http://smartcompare.com/ontologia#Dispositivo_Móvil"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Decoracion -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Decoracion">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Hogar"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Detalle_de_Pedido -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Detalle_de_Pedido">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Transacción"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Devolución -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Devolución">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Transacción"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Dispositivo_Móvil -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Dispositivo_Móvil">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Electrodomestico -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Electrodomestico">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Hogar"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Electronica -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Electronica">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Estado_del_Producto -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Estado_del_Producto">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Funda -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Funda">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Accesorio"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Hogar -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Hogar">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Interacción -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Interacción"/>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Laptop -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Laptop">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Computadora"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneSistemaOperativo"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tienePulgadas"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#LaptopGamer -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#LaptopGamer">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Marca">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Caracteristica"/>
+        <rdfs:comment>Clase que representa una marca de productos</rdfs:comment>
+        <rdfs:label>Marca</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Moda -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Moda">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Monitor -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Monitor">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Computadora"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Mouse -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Mouse">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Computadora"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Mueble -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Mueble">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Hogar"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Oferta -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Oferta">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Transacción"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Pedido -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Pedido">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Transacción"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Pedido_Entregado -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Pedido_Entregado">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Pedido_Enviado -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Pedido_Enviado">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Pedido_Pendiente -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Pedido_Pendiente">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Pedido"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Procesador -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Procesador">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Computadora"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Producto -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Producto">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneNombre"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tienePrecio"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#vendidoPor"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneMarca"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Clase que representa un producto en el mercado</rdfs:comment>
+        <rdfs:label>Producto</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Reseña -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Reseña">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Interacción"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Reseña_Negativa -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Reseña_Negativa">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Reseña_Neutral -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Reseña_Neutral">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Reseña_Positiva -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Reseña_Positiva">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Ropa -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Ropa">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Moda"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#RopaHombre -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#RopaHombre">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Ropa"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#RopaMujer -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#RopaMujer">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Ropa"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Sistema_Operativo -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Sistema_Operativo">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Característica_Técnica"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Smartphone -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Smartphone">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Dispositivo_Móvil"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tienePulgadas"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://smartcompare.com/ontologia#tieneSistemaOperativo"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Tablet -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Tablet">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Dispositivo_Móvil"/>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Transacción -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Transacción"/>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Usuario -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Usuario">
+        <rdfs:comment>Clase que representa un usuario del sistema</rdfs:comment>
+        <rdfs:label>Usuario</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vendedor -->
+
+    <owl:Class rdf:about="http://smartcompare.com/ontologia#Vendedor">
+        <rdfs:subClassOf rdf:resource="http://smartcompare.com/ontologia#Usuario"/>
+        <rdfs:comment>Clase que representa un vendedor/proveedor</rdfs:comment>
+        <rdfs:label>Vendedor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Admin_Pedro -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Admin_Pedro">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Administrador"/>
+        <emailUsuario>pedro@test.com</emailUsuario>
+        <tieneNombre>Pedro Angel</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#CPU_Intel_i9 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#CPU_Intel_i9">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Procesador"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Intel"/>
+        <tieneNombre>Core i9 14th Gen</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">500.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Camisa_Lino -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Camisa_Lino">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#RopaHombre"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneMaterial>Lino</tieneMaterial>
+        <tieneNombre>Camisa Verano</tieneNombre>
+        <tieneTalla>M</tieneTalla>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Cargador_USB_C -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Cargador_USB_C">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Cargador"/>
+        <esCompatibleCon rdf:resource="http://smartcompare.com/ontologia#GalaxyS24_Ultra"/>
+        <tieneNombre>Cargador Rápido 20W</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Comp_Precios_iPhone -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Comp_Precios_iPhone">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Comparacion"/>
+        <contieneProducto rdf:resource="http://smartcompare.com/ontologia#iPhone15_Barato"/>
+        <contieneProducto rdf:resource="http://smartcompare.com/ontologia#iPhone15_Caro"/>
+        <productoGanador rdf:resource="http://smartcompare.com/ontologia#iPhone15_Barato"/>
+        <realizadoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Maria"/>
+        <fechaPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2023-11-28T09:00:00</fechaPedido>
+        <tieneNombre>Comparando precio oficial vs importador</tieneNombre>
+        <tieneNombre>Comparativa Precios iPhone 15</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Comprador_Ana -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Comprador_Ana">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <emailUsuario>ana@test.com</emailUsuario>
+        <tieneNombre>Ana Angela</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Comprador_Maria -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Comprador_Maria">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <emailUsuario>maria@test.com</emailUsuario>
+        <tieneNombre>Maria Susan</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Detalle_01_Phones -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Detalle_01_Phones">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <correspondeAProducto rdf:resource="http://smartcompare.com/ontologia#iPhone15_Barato"/>
+        <cantidadProducto rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</cantidadProducto>
+        <precioUnitarioSnapshot rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">950.00</precioUnitarioSnapshot>
+        <subtotalDetalle rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1900.00</subtotalDetalle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Detalle_02_Funda -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Detalle_02_Funda">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Detalle_de_Pedido"/>
+        <correspondeAProducto rdf:resource="http://smartcompare.com/ontologia#Funda_iPhone15"/>
+        <cantidadProducto rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</cantidadProducto>
+        <precioUnitarioSnapshot rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.00</precioUnitarioSnapshot>
+        <subtotalDetalle rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.00</subtotalDetalle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Devolucion_Por_Talla -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Devolucion_Por_Talla">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Devolución"/>
+        <realizadoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Ana"/>
+        <tieneDescripcion>El zapato me quedó chico</tieneDescripcion>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Escritorio_Gaming -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Escritorio_Gaming">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Mueble"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Ikea"/>
+        <tieneMaterial>Acero</tieneMaterial>
+        <tieneNombre>Fredde Desk</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Espejo_Redondo -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Espejo_Redondo">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Decoracion"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_JuanPerez"/>
+        <tieneNombre>Espejo Decorativo</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Funda_iPhone15 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Funda_iPhone15">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Funda"/>
+        <esCompatibleCon rdf:resource="http://smartcompare.com/ontologia#iPhone15_Barato"/>
+        <tieneNombre>Case Silicona</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#GalaxyS24_Ultra -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#GalaxyS24_Ultra">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Smartphone"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Samsung"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Android_14"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">512</tieneAlmacenamiento_GB>
+        <tieneNombre>Galaxy S24 Ultra</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1100.00</tienePrecio>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</tieneRAM_GB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Laptop_Dell_XPS -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Laptop_Dell_XPS">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Dell"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneNombre>Dell XPS 13</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1400.00</tienePrecio>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16</tieneRAM_GB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Licuadora_Oster -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Licuadora_Oster">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Electrodomestico"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneNombre>Licuadora Xpert</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">80.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Apple -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Apple">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Apple Inc</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Dell -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Dell">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Dell</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Ikea -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Ikea">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>IKEA</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Intel -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Intel">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Intel</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Nike -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Nike">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Nike</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Samsung -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Samsung">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Samsung Electronics</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Sony -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Sony">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Sony</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Monitor_Sony_4K -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Monitor_Sony_4K">
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Sony"/>
+        <tieneNombre>Sony Inzone M9</tieneNombre>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">27.0</tienePulgadas>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Mouse_Logitech -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Mouse_Logitech">
+        <tieneNombre>MX Master 3</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">99.00</tienePrecio>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#NikeAir_Talla43 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#NikeAir_Talla43">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Calzado"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Nike"/>
+        <tieneColor>Blanco</tieneColor>
+        <tieneNombre>Nike Air Force 1</tieneNombre>
+        <tieneTalla>43</tieneTalla>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#OS_Android_14 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#OS_Android_14">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Sistema_Operativo"/>
+        <owl:differentFrom rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <tieneNombre>Android 14</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#OS_Windows_11 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#OS_Windows_11">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Sistema_Operativo"/>
+        <tieneNombre>Windows 11 Home</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Oferta_Navidad -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Oferta_Navidad">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Oferta"/>
+        <tieneNombre>Descuento Navidad 30%</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Pedido_Ana_Web -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Pedido_Ana_Web">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Pedido_Pendiente"/>
+        <realizadoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Maria"/>
+        <tieneLineaDePedido rdf:resource="http://smartcompare.com/ontologia#Detalle_01_Phones"/>
+        <tieneLineaDePedido rdf:resource="http://smartcompare.com/ontologia#Detalle_02_Funda"/>
+        <fechaPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-11-28T10:00:00</fechaPedido>
+        <numeroSeguimiento>TRACK-XYZ</numeroSeguimiento>
+        <totalPagado rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1910.00</totalPagado>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Producto_Sin_Clasificar -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Producto_Sin_Clasificar">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.6</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</tieneRAM_GB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Review_001_Funda -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Review_001_Funda">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <escritoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Maria"/>
+        <textoComentario>Excelente calidad</textoComentario>
+        <tieneCalificacion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5</tieneCalificacion>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Review_002_iPhone -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Review_002_iPhone">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <escritoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Maria"/>
+        <textoComentario>Muy caro</textoComentario>
+        <tieneCalificacion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</tieneCalificacion>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Review_003_Jeans -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Review_003_Jeans">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <escritoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Ana"/>
+        <textoComentario>Talla correcta, tela normal</textoComentario>
+        <tieneCalificacion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</tieneCalificacion>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Review_005_PC -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Review_005_PC">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+        <escritoPor rdf:resource="http://smartcompare.com/ontologia#Comprador_Ana"/>
+        <textoComentario>Una bestia de máquina</textoComentario>
+        <tieneCalificacion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5</tieneCalificacion>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vend_Amazon -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Vend_Amazon">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Vendedor"/>
+        <tieneNombre>Amazon Global</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vend_JuanPerez -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Vend_JuanPerez">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Vendedor"/>
+        <tieneNombre>Juan Perez Imports</tieneNombre>
+        <rdfs:comment>Vendedor barato</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vend_Oficial_iShop -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Vend_Oficial_iShop">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Vendedor"/>
+        <tieneNombre>iShop Oficial</tieneNombre>
+        <rdfs:comment>Vendedor caro/seguro</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vend_TiendaGamer -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Vend_TiendaGamer">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Vendedor"/>
+        <tieneNombre>Zone Gamer</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#Vestido_Gala -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Vestido_Gala">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#RopaMujer"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneColor>Rojo</tieneColor>
+        <tieneMaterial>Seda</tieneMaterial>
+        <tieneNombre>Vestido Noche</tieneNombre>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#iPad_Air -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#iPad_Air">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Tablet"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Apple"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Oficial_iShop"/>
+        <tieneNombre>iPad Air M1</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">600.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.9</tienePulgadas>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#iPhone15_Barato -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#iPhone15_Barato">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Smartphone"/>
+        <esSimilarA rdf:resource="http://smartcompare.com/ontologia#iPhone15_Caro"/>
+        <incompatibleCon rdf:resource="http://smartcompare.com/ontologia#GalaxyS24_Ultra"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Apple"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_JuanPerez"/>
+        <tieneNombre>iPhone 15 Pro</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">950.00</tienePrecio>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">256</tieneRAM_GB>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8</tieneRAM_GB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://smartcompare.com/ontologia#iPhone15_Caro -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#iPhone15_Caro">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Smartphone"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Apple"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Oficial_iShop"/>
+        <tieneNombre>iPhone 15 Pro</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1200.00</tienePrecio>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">256</tieneRAM_GB>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8</tieneRAM_GB>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Comprador_Carlos -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Comprador_Carlos">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+        <historialCompras rdf:resource="http://smartcompare.com/ontologia#iPhone15_Barato"/>
+        <historialCompras rdf:resource="http://smartcompare.com/ontologia#Laptop_Dell_XPS"/>
+        <prefiereCategoria rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+        <emailUsuario>carlos@test.com</emailUsuario>
+        <presupuestoMaximo rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1500.00</presupuestoMaximo>
+        <tieneNombre>Carlos Rodriguez</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Laptop_HP_Pavilion -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Laptop_HP_Pavilion">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_HP"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">512</tieneAlmacenamiento_GB>
+        <tieneNombre>HP Pavilion 15</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">900.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.6</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</tieneRAM_GB>
+        <procesadorModelo>Intel Core i5</procesadorModelo>
+        <procesadorVelocidad_GHz rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.4</procesadorVelocidad_GHz>
+        <numeroNucleosCPU rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</numeroNucleosCPU>
+        <pesoGramos rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1800</pesoGramos>
+        <resolucionPantalla>1920x1080</resolucionPantalla>
+        <garantiaMeses rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</garantiaMeses>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_HP -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_HP">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>HP Inc.</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Laptop_Lenovo_ThinkPad -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Laptop_Lenovo_ThinkPad">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Lenovo"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_TiendaGamer"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1024</tieneAlmacenamiento_GB>
+        <tieneNombre>Lenovo ThinkPad X1</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1800.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.0</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</tieneRAM_GB>
+        <procesadorModelo>Intel Core i7</procesadorModelo>
+        <procesadorVelocidad_GHz rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.2</procesadorVelocidad_GHz>
+        <numeroNucleosCPU rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</numeroNucleosCPU>
+        <tarjetaGrafica>Intel Iris Xe</tarjetaGrafica>
+        <pesoGramos rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1200</pesoGramos>
+        <resolucionPantalla>2560x1440</resolucionPantalla>
+        <garantiaMeses rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</garantiaMeses>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Lenovo -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Lenovo">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Lenovo</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Smartphone_Xiaomi -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Smartphone_Xiaomi">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Smartphone"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Xiaomi"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Android_14"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">256</tieneAlmacenamiento_GB>
+        <tieneNombre>Xiaomi 13 Pro</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.7</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</tieneRAM_GB>
+        <bateriaCapacidad_mAh rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4820</bateriaCapacidad_mAh>
+        <resolucionPantalla>3200x1440</resolucionPantalla>
+        <pesoGramos rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">229</pesoGramos>
+        <garantiaMeses rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</garantiaMeses>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_Xiaomi -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_Xiaomi">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>Xiaomi Corporation</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Tablet_Samsung -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Tablet_Samsung">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Tablet"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_Samsung"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Android_14"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_Amazon"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">256</tieneAlmacenamiento_GB>
+        <tieneNombre>Samsung Galaxy Tab S9</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11.0</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</tieneRAM_GB>
+        <bateriaCapacidad_mAh rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8000</bateriaCapacidad_mAh>
+        <resolucionPantalla>2560x1600</resolucionPantalla>
+        <pesoGramos rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">498</pesoGramos>
+        <garantiaMeses rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</garantiaMeses>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Laptop_MSI_Gaming -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Laptop_MSI_Gaming">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+        <tieneMarca rdf:resource="http://smartcompare.com/ontologia#Marca_MSI"/>
+        <tieneSistemaOperativo rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <vendidoPor rdf:resource="http://smartcompare.com/ontologia#Vend_TiendaGamer"/>
+        <tieneAlmacenamiento_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1024</tieneAlmacenamiento_GB>
+        <tieneNombre>MSI Katana GF66</tieneNombre>
+        <tienePrecio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1400.00</tienePrecio>
+        <tienePulgadas rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.6</tienePulgadas>
+        <tieneRAM_GB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</tieneRAM_GB>
+        <procesadorModelo>Intel Core i7</procesadorModelo>
+        <procesadorVelocidad_GHz rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4.5</procesadorVelocidad_GHz>
+        <numeroNucleosCPU rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</numeroNucleosCPU>
+        <tarjetaGrafica>NVIDIA RTX 3060</tarjetaGrafica>
+        <pesoGramos rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2250</pesoGramos>
+        <resolucionPantalla>1920x1080</resolucionPantalla>
+        <garantiaMeses rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</garantiaMeses>
+        <tieneDescuento rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.00</tieneDescuento>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#Marca_MSI -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#Marca_MSI">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Marca"/>
+        <tieneNombre>MSI</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!-- http://smartcompare.com/ontologia#OS_iOS_17 -->
+
+    <owl:NamedIndividual rdf:about="http://smartcompare.com/ontologia#OS_iOS_17">
+        <rdf:type rdf:resource="http://smartcompare.com/ontologia#Sistema_Operativo"/>
+        <owl:differentFrom rdf:resource="http://smartcompare.com/ontologia#OS_Android_14"/>
+        <owl:differentFrom rdf:resource="http://smartcompare.com/ontologia#OS_Windows_11"/>
+        <tieneNombre>iOS 17</tieneNombre>
+    </owl:NamedIndividual>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#l">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#ram">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#p1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#p2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#nombre">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#r">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#puntos">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>DetectarGamer</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Laptop"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#l"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#l"/>
+                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#ram"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                        <swrl:arguments>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first rdf:resource="http://smartcompare.com/ontologia#ram"/>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </swrl:arguments>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#LaptopGamer"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#l"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>EncontrarMejorPrecio</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneNombre"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#nombre"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneNombre"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#nombre"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tienePrecio"/>
+                                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p1"/>
+                                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#precio1"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tienePrecio"/>
+                                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p2"/>
+                                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#precio2"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThan"/>
+                                                                        <swrl:arguments rdf:parseType="Collection">
+                                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio1"/>
+                                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio2"/>
+                                                                        </swrl:arguments>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#esMejorOpcionQue"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#p2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>ClasificarPositivas</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneCalificacion"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#puntos"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                        <swrl:arguments>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first rdf:resource="http://smartcompare.com/ontologia#puntos"/>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </swrl:arguments>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Reseña_Positiva"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>ClasificarNegativas</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Reseña"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneCalificacion"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#puntos"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                        <swrl:arguments>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first rdf:resource="http://smartcompare.com/ontologia#puntos"/>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </swrl:arguments>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Reseña_Negativa"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#r"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#c">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#p">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#presup">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#e1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#e2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#ram1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#ram2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#storage1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#storage2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#size1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#size2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#os1">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#os2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#p_comprado">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://smartcompare.com/ontologia#p_similar">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Recomendar productos similares a los comprados previamente</rdfs:comment>
+        <rdfs:label>RecomendarPorHistorial</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#historialCompras"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#p_comprado"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#esSimilarA"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p_comprado"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#p_similar"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#esRecomendadoPara"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p_similar"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Recomendar productos dentro del presupuesto del comprador</rdfs:comment>
+        <rdfs:label>RecomendarPorPresupuesto</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Comprador"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Producto"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#presupuestoMaximo"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#presup"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tienePrecio"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#precio"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                                        <swrl:arguments rdf:parseType="Collection">
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#precio"/>
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#presup"/>
+                                                        </swrl:arguments>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#estaDentroPresupuesto"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#p"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#c"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Comparar productos electrónicos por RAM</rdfs:comment>
+        <rdfs:label>CompararRAM</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#ram1"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#ram2"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                                                        <swrl:arguments rdf:parseType="Collection">
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#ram1"/>
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#ram2"/>
+                                                        </swrl:arguments>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneMejorRAMQue"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Comparar productos por almacenamiento</rdfs:comment>
+        <rdfs:label>CompararAlmacenamiento</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#storage1"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#storage2"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                                                        <swrl:arguments rdf:parseType="Collection">
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#storage1"/>
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#storage2"/>
+                                                        </swrl:arguments>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneMejorAlmacenamientoQue"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Comparar productos por tamaño de pantalla</rdfs:comment>
+        <rdfs:label>CompararPantalla</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tienePulgadas"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#size1"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tienePulgadas"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#size2"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThan"/>
+                                                        <swrl:arguments rdf:parseType="Collection">
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#size1"/>
+                                                            <rdf:Description rdf:about="http://smartcompare.com/ontologia#size2"/>
+                                                        </swrl:arguments>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneMejorPantallaQue"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Detectar equivalencias técnicas automáticamente</rdfs:comment>
+        <rdfs:label>DetectarEquivalentesTecnicos</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#ram1"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneRAM_GB"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#ram1"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB"/>
+                                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#storage1"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneAlmacenamiento_GB"/>
+                                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#storage1"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#esEquivalenteTecnico"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Detectar incompatibilidad entre productos con diferentes sistemas operativos</rdfs:comment>
+        <rdfs:label>DetectarIncompatibilidadSO</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://smartcompare.com/ontologia#Electronica"/>
+                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneSistemaOperativo"/>
+                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#os1"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#tieneSistemaOperativo"/>
+                                                <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                                                <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#os2"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DifferentIndividualsAtom"/>
+                                                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#os1"/>
+                                                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#os2"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://smartcompare.com/ontologia#incompatibleCon"/>
+                        <swrl:argument1 rdf:resource="http://smartcompare.com/ontologia#e1"/>
+                        <swrl:argument2 rdf:resource="http://smartcompare.com/ontologia#e2"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
+
+
