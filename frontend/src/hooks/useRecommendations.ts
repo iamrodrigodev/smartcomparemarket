@@ -30,6 +30,7 @@ export function useRecommendations(userId: string | undefined, limit = 10) {
         queryFn: () => api.recommendations.getRecommendations(userId!, limit),
         enabled: !!userId,
         staleTime: 5 * 60 * 1000, // 5 minutos
+        retry: false,
     });
 }
 

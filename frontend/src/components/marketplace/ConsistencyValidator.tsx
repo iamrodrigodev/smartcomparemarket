@@ -132,7 +132,8 @@ export function ConsistencyValidator() {
 
   const products = useMemo(() => {
     if (!productsData?.items) return [];
-    return transformProductList(productsData.items);
+    const transformed = transformProductList(productsData.items);
+    return Array.from(new Map(transformed.map(p => [p.id, p])).values());
   }, [productsData]);
 
   const runValidation = useCallback(() => {
