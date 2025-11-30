@@ -12,8 +12,10 @@ services:
     volumes:
       - graphdb-data:/opt/graphdb/home
       - ./ontologies:/ontologies:ro
+      - ./graphdb-config:/opt/graphdb-config
     networks:
       - smartcompare-network
+    entrypoint: ["/bin/sh", "/opt/graphdb-config/entrypoint.sh"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7200/rest/repositories"]
       interval: 30s

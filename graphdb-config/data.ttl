@@ -1,0 +1,89 @@
+@prefix : <http://www.semanticweb.org/ontologies/2024/smartcomparemarket#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# --- Productos de Electrónica ---
+
+:Smartphone_GalaxyS24 a :Smartphone ;
+    :tieneNombre "Samsung Galaxy S24 Ultra" ;
+    :tieneMarca :Samsung ;
+    :tienePrecio 1299.99 ;
+    :tieneDescripcion "El smartphone más potente de Samsung con IA integrada." ;
+    :tieneImagen "https://images.unsplash.com/photo-1610945265078-38584e12e87d?w=500&q=80" ;
+    :tieneRating 4.8 ;
+    :tieneStock 50 ;
+    :esPremium true ;
+    :tieneEspecificacion [ a :Especificacion ; :nombreSpec "RAM" ; :valorSpec "12GB" ] ;
+    :tieneEspecificacion [ a :Especificacion ; :nombreSpec "Almacenamiento" ; :valorSpec "512GB" ] .
+
+:Smartphone_iPhone15 a :Smartphone ;
+    :tieneNombre "Apple iPhone 15 Pro" ;
+    :tieneMarca :Apple ;
+    :tienePrecio 1199.99 ;
+    :tieneDescripcion "Titanio. Tan robusto. Tan ligero. Tan Pro." ;
+    :tieneImagen "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500&q=80" ;
+    :tieneRating 4.9 ;
+    :tieneStock 30 ;
+    :esPremium true ;
+    :tieneEspecificacion [ a :Especificacion ; :nombreSpec "Chip" ; :valorSpec "A17 Pro" ] .
+
+:Laptop_MacBookPro a :Laptop ;
+    :tieneNombre "MacBook Pro M3" ;
+    :tieneMarca :Apple ;
+    :tienePrecio 1599.00 ;
+    :tieneDescripcion "La laptop más avanzada para profesionales." ;
+    :tieneImagen "https://images.unsplash.com/photo-1517336714731-489689fd1ca4?w=500&q=80" ;
+    :tieneRating 4.9 ;
+    :tieneStock 15 ;
+    :esPremium true .
+
+:Laptop_DellXPS a :Laptop ;
+    :tieneNombre "Dell XPS 13" ;
+    :tieneMarca :Dell ;
+    :tienePrecio 999.00 ;
+    :tieneDescripcion "Diseño ultradelgado y rendimiento excepcional." ;
+    :tieneImagen "https://images.unsplash.com/photo-1593642632823-8f78536788c6?w=500&q=80" ;
+    :tieneRating 4.5 ;
+    :tieneStock 20 .
+
+# --- Ropa ---
+
+:Camiseta_Nike a :RopaDeportiva ;
+    :tieneNombre "Nike Dri-FIT Tee" ;
+    :tieneMarca :Nike ;
+    :tienePrecio 35.00 ;
+    :tieneDescripcion "Camiseta transpirable para entrenamiento." ;
+    :tieneImagen "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80" ;
+    :tieneRating 4.6 ;
+    :tieneStock 100 .
+
+:Zapatillas_Adidas a :Calzado ;
+    :tieneNombre "Adidas Ultraboost" ;
+    :tieneMarca :Adidas ;
+    :tienePrecio 180.00 ;
+    :tieneDescripcion "Máxima comodidad y retorno de energía." ;
+    :tieneImagen "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500&q=80" ;
+    :tieneRating 4.7 ;
+    :tieneStock 45 .
+
+# --- Hogar ---
+
+:Cafetera_Nespresso a :Electrodomestico ;
+    :tieneNombre "Nespresso Vertuo" ;
+    :tieneMarca :Nespresso ;
+    :tienePrecio 199.00 ;
+    :tieneDescripcion "Café de alta calidad con solo tocar un botón." ;
+    :tieneImagen "https://images.unsplash.com/photo-1517080319522-b0629294e94c?w=500&q=80" ;
+    :tieneRating 4.4 ;
+    :tieneStock 60 .
+
+# --- Marcas ---
+:Samsung a :Marca ; rdfs:label "Samsung" .
+:Apple a :Marca ; rdfs:label "Apple" .
+:Dell a :Marca ; rdfs:label "Dell" .
+:Nike a :Marca ; rdfs:label "Nike" .
+:Adidas a :Marca ; rdfs:label "Adidas" .
+:Nespresso a :Marca ; rdfs:label "Nespresso" .

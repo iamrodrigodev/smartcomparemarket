@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Network, ChevronRight, ChevronDown, Layers, GitBranch, Tag, CheckCircle2 } from 'lucide-react';
+import { Network, ChevronRight, ChevronDown, Layers, GitBranch, Tag, CheckCircle2, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { products, categories, Product } from '@/data/mockProducts';
+import { Product } from '@/types/marketplace';
 import { cn } from '@/lib/utils';
+import { useProductSearch } from '@/hooks/useProducts';
+import { transformProductList } from '@/lib/transformers';
 
 interface OntologyNode {
   id: string;
@@ -16,14 +17,14 @@ interface OntologyNode {
 }
 
 // Build ontology tree from products
-function buildOntologyTree(): OntologyNode[] {
+function buildOntologyTree(products: Product[]): OntologyNode[] {
   const tree: OntologyNode[] = [];
-  
+
   // Group products by their ontology class hierarchy
   const ontologyMap = new Map<string, Product[]>();
-  
+
   products.forEach(product => {
-    const path = product.ontologyClass;
+    const path = product.ontologyClass || 'Unclassified';
     if (!ontologyMap.has(path)) {
       ontologyMap.set(path, []);
     }
@@ -40,7 +41,7 @@ function buildOntologyTree(): OntologyNode[] {
 
     parts.forEach((part, index) => {
       const nodeId = parts.slice(0, index + 1).join(' > ');
-      
+
       if (!currentLevel.has(part)) {
         const newNode: OntologyNode = {
           id: nodeId,
@@ -49,16 +50,16 @@ function buildOntologyTree(): OntologyNode[] {
           products: index === parts.length - 1 ? prods : [],
           level: index
         };
-        
+
         if (parent) {
           parent.children.push(newNode);
         } else {
           tree.push(newNode);
         }
-        
+
         currentLevel.set(part, newNode);
       }
-      
+
       parent = currentLevel.get(part)!;
       const childMap = new Map<string, OntologyNode>();
       parent.children.forEach(child => childMap.set(child.name, child));
@@ -97,15 +98,15 @@ function TreeNode({ node, onSelectProduct }: TreeNodeProps) {
         ) : (
           <span className="w-4" />
         )}
-        
+
         <Layers className={cn(
           "h-4 w-4",
-          node.level === 0 ? "text-primary" : 
-          node.level === 1 ? "text-equivalent" : "text-compatible"
+          node.level === 0 ? "text-primary" :
+            node.level === 1 ? "text-equivalent" : "text-compatible"
         )} />
-        
+
         <span className="font-medium text-sm text-foreground">{node.name}</span>
-        
+
         <Badge variant="secondary" className="text-xs ml-auto">
           {totalProducts}
         </Badge>
@@ -122,7 +123,7 @@ function TreeNode({ node, onSelectProduct }: TreeNodeProps) {
             {node.children.map(child => (
               <TreeNode key={child.id} node={child} onSelectProduct={onSelectProduct} />
             ))}
-            
+
             {node.products.length > 0 && (
               <div className="ml-4 space-y-1 py-2">
                 {node.products.map(product => (
@@ -158,7 +159,16 @@ interface OWLClassificationPanelProps {
 
 export function OWLClassificationPanel({ onProductSelect }: OWLClassificationPanelProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const ontologyTree = buildOntologyTree();
+
+  // Obtener todos los productos para construir el árbol
+  const { data: productsData, isLoading } = useProductSearch({ page: 1, page_size: 100 });
+
+  const products = useMemo(() => {
+    if (!productsData?.items) return [];
+    return transformProductList(productsData.items);
+  }, [productsData]);
+
+  const ontologyTree = useMemo(() => buildOntologyTree(products), [products]);
 
   const handleSelectProduct = (product: Product) => {
     setSelectedProduct(product);
@@ -166,12 +176,28 @@ export function OWLClassificationPanel({ onProductSelect }: OWLClassificationPan
   };
 
   // Calculate subsumption statistics
-  const subsumptionStats = {
-    totalClasses: new Set(products.map(p => p.ontologyClass)).size,
-    rootClasses: ontologyTree.length,
-    maxDepth: Math.max(...products.map(p => p.ontologyClass.split(' > ').length)),
-    avgDepth: (products.reduce((sum, p) => sum + p.ontologyClass.split(' > ').length, 0) / products.length).toFixed(1)
-  };
+  const subsumptionStats = useMemo(() => {
+    if (products.length === 0) return { totalClasses: 0, rootClasses: 0, maxDepth: 0, avgDepth: 0 };
+
+    return {
+      totalClasses: new Set(products.map(p => p.ontologyClass)).size,
+      rootClasses: ontologyTree.length,
+      maxDepth: Math.max(...products.map(p => (p.ontologyClass?.split(' > ').length || 0))),
+      avgDepth: (products.reduce((sum, p) => sum + (p.ontologyClass?.split(' > ').length || 0), 0) / products.length).toFixed(1)
+    };
+  }, [products, ontologyTree]);
+
+  if (isLoading) {
+    return (
+      <section className="py-8">
+        <div className="container mx-auto px-4 flex justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </section>
+    );
+  }
+
+  if (products.length === 0) return null;
 
   return (
     <section className="py-8">
@@ -249,7 +275,7 @@ export function OWLClassificationPanel({ onProductSelect }: OWLClassificationPan
                       <p className="text-sm font-medium text-foreground">{selectedProduct.name}</p>
                       <p className="text-xs text-muted-foreground">{selectedProduct.brand}</p>
                     </div>
-                    
+
                     <div className="bg-card rounded-lg p-3">
                       <p className="text-xs text-muted-foreground mb-1">Clase OWL inferida:</p>
                       <code className="text-xs text-primary font-mono">
@@ -260,7 +286,7 @@ export function OWLClassificationPanel({ onProductSelect }: OWLClassificationPan
                     <div>
                       <p className="text-xs text-muted-foreground mb-2">Tags semánticos:</p>
                       <div className="flex flex-wrap gap-1">
-                        {selectedProduct.semanticTags.map(tag => (
+                        {selectedProduct.semanticTags?.map(tag => (
                           <Badge key={tag} variant="outline" className="text-xs">
                             {tag}
                           </Badge>

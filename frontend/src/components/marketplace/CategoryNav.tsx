@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Category } from '@/data/mockProducts';
+import { Category } from '@/types/marketplace';
 import { cn } from '@/lib/utils';
 
 interface CategoryNavProps {
@@ -46,7 +46,7 @@ export function CategoryNav({ categories, selectedCategory, onCategorySelect }: 
             >
               <span>{category.icon}</span>
               <span>{category.name}</span>
-              <span className="text-xs opacity-70">({category.productCount})</span>
+              <span className="text-xs opacity-70">({category.count})</span>
             </motion.button>
           ))}
         </div>

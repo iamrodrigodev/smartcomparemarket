@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ShieldAlert, ShieldX, AlertTriangle, CheckCircle, XCircle, Info, RefreshCw } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, ShieldX, AlertTriangle, CheckCircle, XCircle, Info, RefreshCw, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { products, Product } from '@/data/mockProducts';
+import { Product } from '@/types/marketplace';
 import { cn } from '@/lib/utils';
+import { useProductSearch } from '@/hooks/useProducts';
+import { transformProductList } from '@/lib/transformers';
 
 interface ValidationRule {
   id: string;
   name: string;
   description: string;
   severity: 'error' | 'warning' | 'info';
-  validate: (product: Product) => { valid: boolean; message?: string };
+  validate: (product: Product, allProducts: Product[]) => { valid: boolean; message?: string };
 }
 
 interface ValidationResult {
@@ -41,7 +43,7 @@ const validationRules: ValidationRule[] = [
     severity: 'warning',
     validate: (p) => ({
       valid: !p.originalPrice || p.originalPrice > p.price,
-      message: p.originalPrice && p.originalPrice <= p.price 
+      message: p.originalPrice && p.originalPrice <= p.price
         ? 'El precio original no es mayor que el actual' : undefined
     })
   },
@@ -52,7 +54,7 @@ const validationRules: ValidationRule[] = [
     severity: 'warning',
     validate: (p) => ({
       valid: p.specifications.length >= 3,
-      message: p.specifications.length < 3 
+      message: p.specifications.length < 3
         ? `Solo tiene ${p.specifications.length} especificaciones` : undefined
     })
   },
@@ -62,9 +64,9 @@ const validationRules: ValidationRule[] = [
     description: 'El producto debe tener al menos 2 tags semánticos',
     severity: 'info',
     validate: (p) => ({
-      valid: p.semanticTags.length >= 2,
-      message: p.semanticTags.length < 2 
-        ? `Solo tiene ${p.semanticTags.length} tags semánticos` : undefined
+      valid: (p.semanticTags?.length || 0) >= 2,
+      message: (p.semanticTags?.length || 0) < 2
+        ? `Solo tiene ${p.semanticTags?.length || 0} tags semánticos` : undefined
     })
   },
   {
@@ -74,7 +76,7 @@ const validationRules: ValidationRule[] = [
     severity: 'error',
     validate: (p) => ({
       valid: p.rating >= 0 && p.rating <= 5,
-      message: p.rating < 0 || p.rating > 5 
+      message: p.rating < 0 || p.rating > 5
         ? `Rating fuera de rango: ${p.rating}` : undefined
     })
   },
@@ -84,8 +86,8 @@ const validationRules: ValidationRule[] = [
     description: 'Debe tener una jerarquía de clase OWL válida',
     severity: 'error',
     validate: (p) => ({
-      valid: p.ontologyClass.includes(' > ') && p.ontologyClass.split(' > ').length >= 2,
-      message: !p.ontologyClass.includes(' > ') 
+      valid: !!p.ontologyClass && p.ontologyClass.includes(' > ') && p.ontologyClass.split(' > ').length >= 2,
+      message: !p.ontologyClass || !p.ontologyClass.includes(' > ')
         ? 'Jerarquía ontológica incompleta' : undefined
     })
   },
@@ -94,13 +96,15 @@ const validationRules: ValidationRule[] = [
     name: 'Consistencia de relaciones',
     description: 'Las relaciones deben apuntar a productos existentes',
     severity: 'warning',
-    validate: (p) => {
+    validate: (p, allProducts) => {
+      if (!p.relations) return { valid: true };
+
       const invalidRelations = p.relations.filter(
-        r => !products.find(pr => pr.id === r.productId)
+        r => !allProducts.find(pr => pr.id === r.productId)
       );
       return {
         valid: invalidRelations.length === 0,
-        message: invalidRelations.length > 0 
+        message: invalidRelations.length > 0
           ? `${invalidRelations.length} relaciones apuntan a productos inexistentes` : undefined
       };
     }
@@ -123,7 +127,17 @@ export function ConsistencyValidator() {
   const [results, setResults] = useState<ValidationResult[]>([]);
   const [showOnlyIssues, setShowOnlyIssues] = useState(true);
 
-  const runValidation = () => {
+  // Obtener productos del backend
+  const { data: productsData, isLoading } = useProductSearch({ page: 1, page_size: 100 });
+
+  const products = useMemo(() => {
+    if (!productsData?.items) return [];
+    return transformProductList(productsData.items);
+  }, [productsData]);
+
+  const runValidation = useCallback(() => {
+    if (products.length === 0) return;
+
     setIsValidating(true);
     setValidationProgress(0);
     setResults([]);
@@ -142,7 +156,7 @@ export function ConsistencyValidator() {
       const issues: { rule: ValidationRule; message: string }[] = [];
 
       validationRules.forEach(rule => {
-        const result = rule.validate(product);
+        const result = rule.validate(product, products);
         if (!result.valid && result.message) {
           issues.push({ rule, message: result.message });
         }
@@ -159,22 +173,25 @@ export function ConsistencyValidator() {
 
       currentIndex++;
       setValidationProgress((currentIndex / products.length) * 100);
-      
+
       setTimeout(validateNext, 50);
     };
 
     validateNext();
-  };
+  }, [products]);
 
+  // Ejecutar validación cuando los productos estén cargados
   useEffect(() => {
-    runValidation();
-  }, []);
+    if (products.length > 0 && !isValidating && results.length === 0) {
+      runValidation();
+    }
+  }, [products, isValidating, results.length, runValidation]);
 
-  const filteredResults = showOnlyIssues 
+  const filteredResults = showOnlyIssues
     ? results.filter(r => r.issues.length > 0)
     : results;
 
-  const overallScore = results.length > 0 
+  const overallScore = results.length > 0
     ? Math.round(results.reduce((sum, r) => sum + r.score, 0) / results.length)
     : 0;
 
@@ -197,6 +214,18 @@ export function ConsistencyValidator() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <section className="py-8 bg-secondary/10">
+        <div className="container mx-auto px-4 flex justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </section>
+    );
+  }
+
+  if (products.length === 0) return null;
+
   return (
     <section className="py-8 bg-secondary/10">
       <div className="container mx-auto px-4">
@@ -210,9 +239,9 @@ export function ConsistencyValidator() {
               <p className="text-sm text-muted-foreground">Verificación semántica de especificaciones OWL</p>
             </div>
           </div>
-          <Button 
-            variant="outline" 
-            onClick={runValidation} 
+          <Button
+            variant="outline"
+            onClick={runValidation}
             disabled={isValidating}
           >
             <RefreshCw className={cn("h-4 w-4 mr-2", isValidating && "animate-spin")} />
@@ -285,7 +314,7 @@ export function ConsistencyValidator() {
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
               {validationRules.map(rule => (
-                <div 
+                <div
                   key={rule.id}
                   className="flex items-start gap-2 p-2 rounded-lg bg-secondary/30"
                 >
@@ -307,8 +336,8 @@ export function ConsistencyValidator() {
               <CardTitle className="text-base">
                 Resultados de Validación
               </CardTitle>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={() => setShowOnlyIssues(!showOnlyIssues)}
               >
@@ -327,8 +356,8 @@ export function ConsistencyValidator() {
                     transition={{ delay: index * 0.02 }}
                     className={cn(
                       "flex items-center justify-between p-3 rounded-lg",
-                      result.issues.length === 0 
-                        ? "bg-compatible/10" 
+                      result.issues.length === 0
+                        ? "bg-compatible/10"
                         : result.issues.some(i => i.rule.severity === 'error')
                           ? "bg-destructive/10"
                           : "bg-premium/10"
@@ -347,9 +376,9 @@ export function ConsistencyValidator() {
                         {result.issues.length > 0 && (
                           <div className="flex flex-wrap gap-1 mt-1">
                             {result.issues.map((issue, i) => (
-                              <Badge 
-                                key={i} 
-                                variant="outline" 
+                              <Badge
+                                key={i}
+                                variant="outline"
                                 className={cn(
                                   "text-xs",
                                   issue.rule.severity === 'error' && "border-destructive text-destructive",
@@ -364,7 +393,7 @@ export function ConsistencyValidator() {
                         )}
                       </div>
                     </div>
-                    <Badge 
+                    <Badge
                       variant={result.score >= 90 ? "default" : result.score >= 70 ? "secondary" : "destructive"}
                     >
                       {result.score}%

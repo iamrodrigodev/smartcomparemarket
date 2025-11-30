@@ -6,13 +6,16 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { categories, brands, priceRanges, semanticFilters } from '@/data/mockProducts';
 import { cn } from '@/lib/utils';
+import { PriceRange, SemanticFilter } from '@/types/marketplace';
 
 interface FilterSidebarProps {
   selectedBrands: string[];
   selectedPriceRange: { min: number; max: number } | null;
   selectedSemanticTags: string[];
+  availableBrands?: string[];
+  priceRanges?: PriceRange[];
+  semanticFilters?: SemanticFilter[];
   onBrandChange: (brands: string[]) => void;
   onPriceRangeChange: (range: { min: number; max: number } | null) => void;
   onSemanticTagChange: (tags: string[]) => void;
@@ -23,6 +26,9 @@ export function FilterSidebar({
   selectedBrands,
   selectedPriceRange,
   selectedSemanticTags,
+  availableBrands = [],
+  priceRanges = [],
+  semanticFilters = [],
   onBrandChange,
   onPriceRangeChange,
   onSemanticTagChange,
@@ -135,20 +141,24 @@ export function FilterSidebar({
               animate={{ opacity: 1 }}
               className="space-y-2 pb-3"
             >
-              {brands.map((brand) => (
-                <label
-                  key={brand}
-                  className="flex items-center gap-3 cursor-pointer group"
-                >
-                  <Checkbox
-                    checked={selectedBrands.includes(brand)}
-                    onCheckedChange={() => toggleBrand(brand)}
-                  />
-                  <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                    {brand}
-                  </span>
-                </label>
-              ))}
+              {availableBrands.length > 0 ? (
+                availableBrands.map((brand) => (
+                  <label
+                    key={brand}
+                    className="flex items-center gap-3 cursor-pointer group"
+                  >
+                    <Checkbox
+                      checked={selectedBrands.includes(brand)}
+                      onCheckedChange={() => toggleBrand(brand)}
+                    />
+                    <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                      {brand}
+                    </span>
+                  </label>
+                ))
+              ) : (
+                <p className="text-xs text-muted-foreground italic">No hay marcas disponibles</p>
+              )}
             </motion.div>
           </CollapsibleContent>
         </Collapsible>

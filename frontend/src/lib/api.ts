@@ -89,7 +89,7 @@ class ApiClient {
     /**
      * GET request
      */
-    async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+    async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
         const queryString = params
             ? '?' + new URLSearchParams(
                 Object.entries(params)
@@ -106,7 +106,7 @@ class ApiClient {
     /**
      * POST request
      */
-    async post<T>(endpoint: string, data?: any): Promise<T> {
+    async post<T>(endpoint: string, data?: unknown): Promise<T> {
         return this.request<T>(endpoint, {
             method: 'POST',
             body: data ? JSON.stringify(data) : undefined,
@@ -116,7 +116,7 @@ class ApiClient {
     /**
      * PUT request
      */
-    async put<T>(endpoint: string, data?: any): Promise<T> {
+    async put<T>(endpoint: string, data?: unknown): Promise<T> {
         return this.request<T>(endpoint, {
             method: 'PUT',
             body: data ? JSON.stringify(data) : undefined,
@@ -161,7 +161,7 @@ class ProductService {
      * Busca productos con filtros semánticos
      */
     async searchProducts(params: ProductSearchParams): Promise<ProductListResponse> {
-        return this.client.get<ProductListResponse>('/products/search/', params);
+        return this.client.get<ProductListResponse>('/products/search/', params as unknown as Record<string, unknown>);
     }
 
     /**
@@ -251,7 +251,7 @@ class RecommendationService {
     ): Promise<RecommendationListResponse> {
         return this.client.get<RecommendationListResponse>(
             `/recommendations/users/${userId}/personalized`,
-            params
+            params as unknown as Record<string, unknown>
         );
     }
 }

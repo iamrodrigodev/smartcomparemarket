@@ -10,7 +10,7 @@ import { usePriceRanges, useVendorStats, useBrandStats, useMarketOverview } from
 interface QueryResult {
   query: string;
   description: string;
-  data: any[];
+  data: Record<string, unknown>[];
 }
 
 const predefinedQueries: { id: string; name: string; sparql: string; description: string }[] = [
@@ -79,7 +79,7 @@ export function MarketAnalysisPanel() {
         return;
       }
 
-      let data: any[] = [];
+      let data: Record<string, unknown>[] = [];
 
       switch (selectedQuery) {
         case 'price-by-category':

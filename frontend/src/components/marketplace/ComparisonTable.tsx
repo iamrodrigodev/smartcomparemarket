@@ -1,8 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, AlertTriangle, Link2, Star, ShoppingCart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { X, Check, Link2, Star, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Product, products as allProducts } from '@/data/mockProducts';
+import { Product } from '@/types/marketplace';
 import { SemanticBadge } from './SemanticBadge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -88,7 +87,7 @@ export function ComparisonTable({ isOpen, onClose, selectedProducts, onRemovePro
                   />
                   <p className="text-xs text-primary font-medium">{product.brand}</p>
                   <h4 className="font-semibold text-sm mb-2 line-clamp-2">{product.name}</h4>
-                  
+
                   <div className="flex items-center justify-center gap-1 mb-2">
                     <Star className="h-4 w-4 fill-premium text-premium" />
                     <span className="text-sm font-medium">{product.rating}</span>

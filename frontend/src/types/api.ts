@@ -17,7 +17,7 @@ export interface ProductResponse {
   marca?: string;
   vendedor?: string;
   uri?: string;
-  especificaciones: Record<string, any>;
+  especificaciones: Record<string, unknown>;
 }
 
 export interface ProductListResponse {
@@ -48,7 +48,7 @@ export interface ProductComparisonRequest {
 
 export interface ProductComparisonResponse {
   productos: ProductResponse[];
-  diferencias: Record<string, any[]>;
+  diferencias: Record<string, unknown[]>;
   mejor_precio: ProductResponse;
   timestamp: string;
 }

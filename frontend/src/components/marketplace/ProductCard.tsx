@@ -2,8 +2,7 @@ import { motion } from 'framer-motion';
 import { Star, ShoppingCart, GitCompare, Sparkles, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Product } from '@/data/mockProducts';
+import { Product } from '@/types/marketplace';
 import { SemanticBadge } from './SemanticBadge';
 import { cn } from '@/lib/utils';
 
@@ -117,19 +116,22 @@ export function ProductCard({ product, isSelected, onToggleCompare, onAddToCart,
 
         {/* Semantic Tags */}
         <div className="flex flex-wrap gap-1 mb-3">
-          {product.semanticTags.slice(0, 3).map((tag) => (
+          {product.semanticTags?.slice(0, 3).map((tag) => (
             <SemanticBadge key={tag} type="tag" label={tag} showIcon={false} />
           ))}
         </div>
 
         {/* Relations indicators */}
-        {product.relations.length > 0 && (
+        {product.relations && product.relations.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
-            {product.relations.filter(r => r.type === 'equivalent').length > 0 && (
-              <SemanticBadge type="equivalent" label={`${product.relations.filter(r => r.type === 'equivalent').length} equiv.`} />
+            {product.relations.filter(r => r.type === 'similar').length > 0 && (
+              <SemanticBadge type="similar" label={`${product.relations.filter(r => r.type === 'similar').length} sim.`} />
             )}
-            {product.relations.filter(r => r.type === 'compatible').length > 0 && (
-              <SemanticBadge type="compatible" label={`${product.relations.filter(r => r.type === 'compatible').length} comp.`} />
+            {product.relations.filter(r => r.type === 'complement').length > 0 && (
+              <SemanticBadge type="complement" label={`${product.relations.filter(r => r.type === 'complement').length} comp.`} />
+            )}
+            {product.relations.filter(r => r.type === 'alternative').length > 0 && (
+              <SemanticBadge type="alternative" label={`${product.relations.filter(r => r.type === 'alternative').length} alt.`} />
             )}
           </div>
         )}

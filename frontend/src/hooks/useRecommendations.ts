@@ -13,7 +13,7 @@ export const recommendationKeys = {
     all: ['recommendations'] as const,
     user: (userId: string) => [...recommendationKeys.all, 'user', userId] as const,
     budget: (userId: string) => [...recommendationKeys.all, 'budget', userId] as const,
-    personalized: (userId: string, params: any) =>
+    personalized: (userId: string, params: Record<string, unknown>) =>
         [...recommendationKeys.all, 'personalized', userId, params] as const,
 };
 

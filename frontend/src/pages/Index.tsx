@@ -11,12 +11,13 @@ import { RecommendationSection } from '@/components/marketplace/RecommendationSe
 import { MarketAnalysisPanel } from '@/components/marketplace/MarketAnalysisPanel';
 import { OWLClassificationPanel } from '@/components/marketplace/OWLClassificationPanel';
 import { ConsistencyValidator } from '@/components/marketplace/ConsistencyValidator';
-import { categories, Product } from '@/data/mockProducts';
+import { Category, Product, PriceRange } from '@/types/marketplace';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LayoutGrid, List, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useProductSearch } from '@/hooks/useProducts';
 import { useRecommendations } from '@/hooks/useRecommendations';
+import { usePriceRanges, useBrandStats } from '@/hooks/useAnalysis';
 import { transformProductList } from '@/lib/transformers';
 import type { ProductSearchParams } from '@/types/api';
 
@@ -32,6 +33,70 @@ const Index = () => {
   const [cartCount, setCartCount] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
+  // --- DATA FETCHING FROM BACKEND ---
+
+  // 1. Obtener estadísticas de categorías para el nav
+  const { data: categoryStats } = usePriceRanges();
+
+  // 2. Obtener estadísticas de marcas para el sidebar
+  const { data: brandStats } = useBrandStats();
+
+  // 3. Construir lista de categorías dinámica
+  const categories: Category[] = useMemo(() => {
+    if (!categoryStats) return [];
+
+    // Agregar categoría "Todos"
+    const allCategory: Category = {
+      id: 'all',
+      name: 'Todos',
+      icon: 'Grid',
+      count: categoryStats.reduce((acc, curr) => acc + curr.total_productos, 0)
+    };
+
+    const dynamicCategories = categoryStats.map(stat => ({
+      id: stat.categoria,
+      name: stat.categoria, // Podríamos mapear nombres si fuera necesario
+      icon: 'Tag', // Icono por defecto, idealmente vendría del backend o un mapa
+      count: stat.total_productos
+    }));
+
+    return [allCategory, ...dynamicCategories];
+  }, [categoryStats]);
+
+  // 4. Construir lista de marcas dinámica
+  const availableBrands = useMemo(() => {
+    if (!brandStats) return [];
+    return brandStats.map(b => b.marca);
+  }, [brandStats]);
+
+  // 5. Construir rangos de precios dinámicos basados en estadísticas
+  const dynamicPriceRanges: PriceRange[] = useMemo(() => {
+    if (!categoryStats) return [];
+
+    // Encontrar min y max global
+    let min = Infinity;
+    let max = 0;
+
+    categoryStats.forEach(stat => {
+      if (stat.precio_minimo < min) min = stat.precio_minimo;
+      if (stat.precio_maximo > max) max = stat.precio_maximo;
+    });
+
+    if (min === Infinity) return [];
+
+    // Crear 4 rangos distribuidos
+    const range = (max - min) / 4;
+
+    return [
+      { id: 'all', label: 'Todos los precios', min: 0, max: Infinity },
+      { id: 'range1', label: `Menos de $${Math.round(min + range)}`, min: 0, max: Math.round(min + range) },
+      { id: 'range2', label: `$${Math.round(min + range)} - $${Math.round(min + range * 2)}`, min: Math.round(min + range), max: Math.round(min + range * 2) },
+      { id: 'range3', label: `$${Math.round(min + range * 2)} - $${Math.round(min + range * 3)}`, min: Math.round(min + range * 2), max: Math.round(min + range * 3) },
+      { id: 'range4', label: `Más de $${Math.round(min + range * 3)}`, min: Math.round(min + range * 3), max: Infinity },
+    ];
+  }, [categoryStats]);
+
+
   // Construir parámetros de búsqueda para el backend
   const searchParams: ProductSearchParams = useMemo(() => {
     const params: ProductSearchParams = {
@@ -39,7 +104,7 @@ const Index = () => {
       page_size: 50,
     };
 
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory !== 'all') {
       params.categoria = selectedCategory;
     }
 
@@ -75,7 +140,7 @@ const Index = () => {
     // Filtro de tags semánticos (local)
     if (selectedSemanticTags.length > 0) {
       result = result.filter((p) =>
-        selectedSemanticTags.some((tag) => p.semanticTags.includes(tag))
+        selectedSemanticTags.some((tag) => p.semanticTags?.includes(tag))
       );
     }
 
@@ -118,7 +183,7 @@ const Index = () => {
   // Transformar recomendaciones
   const recommendations = useMemo(() => {
     if (!recommendationsData?.items) {
-      // Fallback: productos con alto rating
+      // Fallback: productos con alto rating si no hay recomendaciones
       return filteredProducts.filter((p) => p.rating >= 4.7).slice(0, 5);
     }
     return transformProductList(recommendationsData.items.map(r => r.producto));
@@ -174,6 +239,8 @@ const Index = () => {
             selectedBrands={selectedBrands}
             selectedPriceRange={selectedPriceRange}
             selectedSemanticTags={selectedSemanticTags}
+            availableBrands={availableBrands}
+            priceRanges={dynamicPriceRanges}
             onBrandChange={setSelectedBrands}
             onPriceRangeChange={setSelectedPriceRange}
             onSemanticTagChange={setSelectedSemanticTags}
@@ -186,7 +253,7 @@ const Index = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-foreground">
-                  {selectedCategory
+                  {selectedCategory && selectedCategory !== 'all'
                     ? categories.find((c) => c.id === selectedCategory)?.name
                     : 'Todos los Productos'}
                 </h2>

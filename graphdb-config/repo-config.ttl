@@ -1,0 +1,32 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sr: <http://www.openrdf.org/config/repository/sail#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix owlim: <http://www.ontotext.com/trree/owlim#> .
+
+[] a rep:Repository ;
+    rep:repositoryID "smartcomparemarket" ;
+    rdfs:label "SmartCompareMarket Repository" ;
+    rep:repositoryImpl [
+        rep:repositoryType "graphdb:SailRepository" ;
+        sr:sailImpl [
+            sail:sailType "graphdb:Sail" ;
+            
+            owlim:ruleset "owl2-rl-optimized" ;
+            owlim:storage-folder "storage" ;
+            
+            owlim:enable-context-index "true" ;
+            owlim:enablePredicateList "true" ;
+            
+            owlim:entity-id-size "32" ;
+            owlim:entity-index-size "10000000" ;
+            owlim:cache-memory "256m" ;
+            owlim:tuple-index-memory "224m" ;
+            
+            owlim:enable-literal-index "true" ;
+            owlim:predicate-memory "32m" ;
+            
+            owlim:in-memory-literal-properties "true" ;
+            owlim:enable-text-index "true" ;
+        ]
+    ] .

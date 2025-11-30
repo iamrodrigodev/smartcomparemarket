@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Product } from '@/data/mockProducts';
+import { Product } from '@/types/marketplace';
 
 interface RecommendationSectionProps {
   recommendations: Product[];

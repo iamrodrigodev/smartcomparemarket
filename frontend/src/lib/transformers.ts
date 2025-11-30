@@ -4,7 +4,7 @@
  */
 
 import type { ProductResponse } from '@/types/api';
-import type { Product, ProductSpec, SemanticRelation } from '@/data/mockProducts';
+import type { Product, ProductSpec, SemanticRelation } from '@/types/marketplace';
 
 // ============================================================================
 // TRANSFORMADORES DE PRODUCTOS
