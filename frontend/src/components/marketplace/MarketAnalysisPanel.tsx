@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { products, categories, brands } from '@/data/mockProducts';
+import { usePriceRanges, useVendorStats, useBrandStats, useMarketOverview } from '@/hooks/useAnalysis';
 
 interface QueryResult {
   query: string;
@@ -40,17 +40,6 @@ ORDER BY DESC(?count)`,
     description: 'Cantidad de productos por marca en el marketplace'
   },
   {
-    id: 'equivalents',
-    name: 'Productos equivalentes',
-    sparql: `SELECT ?product1 ?product2 ?reason
-WHERE {
-  ?product1 :equivalentTo ?product2 .
-  ?product1 :equivalenceReason ?reason .
-  FILTER(?product1 != ?product2)
-}`,
-    description: 'Pares de productos con equivalencia semántica detectada'
-  },
-  {
     id: 'price-range',
     name: 'Análisis de rangos de precio',
     sparql: `SELECT ?range (COUNT(?product) AS ?count)
@@ -66,17 +55,6 @@ WHERE {
 }
 GROUP BY ?range`,
     description: 'Segmentación de productos por rango de precio'
-  },
-  {
-    id: 'compatibility-matrix',
-    name: 'Matriz de compatibilidad',
-    sparql: `SELECT ?product ?compatibleWith ?reason
-WHERE {
-  ?product :compatibleWith ?compatibleWith .
-  ?product :compatibilityReason ?reason .
-}
-ORDER BY ?product`,
-    description: 'Relaciones de compatibilidad entre productos'
   }
 ];
 
@@ -85,76 +63,73 @@ export function MarketAnalysisPanel() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [results, setResults] = useState<QueryResult | null>(null);
 
+  // Consultar datos del backend
+  const { data: priceRangesData } = usePriceRanges();
+  const { data: brandStatsData } = useBrandStats();
+  const { data: marketOverviewData } = useMarketOverview();
+
   const executeQuery = () => {
     setIsExecuting(true);
-    
-    // Simulate SPARQL query execution with mock data
+
+    // Ejecutar consulta con datos reales del backend
     setTimeout(() => {
       const query = predefinedQueries.find(q => q.id === selectedQuery);
-      if (!query) return;
+      if (!query) {
+        setIsExecuting(false);
+        return;
+      }
 
       let data: any[] = [];
 
       switch (selectedQuery) {
         case 'price-by-category':
-          data = categories.map(cat => {
-            const catProducts = products.filter(p => p.category === cat.id);
-            const avgPrice = catProducts.length > 0 
-              ? catProducts.reduce((sum, p) => sum + p.price, 0) / catProducts.length 
-              : 0;
-            return {
-              category: cat.name,
-              avgPrice: avgPrice.toFixed(2),
-              productCount: catProducts.length
-            };
-          }).filter(d => d.productCount > 0);
+          if (priceRangesData) {
+            data = priceRangesData.map(stat => ({
+              category: stat.categoria,
+              avgPrice: stat.precio_promedio.toFixed(2),
+              minPrice: stat.precio_minimo.toFixed(2),
+              maxPrice: stat.precio_maximo.toFixed(2),
+              productCount: stat.total_productos
+            }));
+          }
           break;
 
         case 'brand-distribution':
-          data = brands.map(brand => ({
-            brand,
-            count: products.filter(p => p.brand === brand).length,
-            percentage: ((products.filter(p => p.brand === brand).length / products.length) * 100).toFixed(1)
-          }));
-          break;
-
-        case 'equivalents':
-          data = products.flatMap(p => 
-            p.relations
-              .filter(r => r.type === 'equivalent')
-              .map(r => ({
-                product1: p.name,
-                product2: products.find(pr => pr.id === r.productId)?.name || r.productId,
-                reason: r.reason
-              }))
-          );
+          if (brandStatsData) {
+            const total = brandStatsData.reduce((sum, b) => sum + b.total_productos, 0);
+            data = brandStatsData.map(brand => ({
+              brand: brand.marca,
+              count: brand.total_productos,
+              avgPrice: brand.precio_promedio.toFixed(2),
+              percentage: total > 0 ? ((brand.total_productos / total) * 100).toFixed(1) : '0'
+            }));
+          }
           break;
 
         case 'price-range':
-          const ranges = [
-            { label: 'Económico', min: 0, max: 200 },
-            { label: 'Medio-bajo', min: 200, max: 500 },
-            { label: 'Medio', min: 500, max: 1000 },
-            { label: 'Premium', min: 1000, max: 1500 },
-            { label: 'Luxury', min: 1500, max: Infinity }
-          ];
-          data = ranges.map(range => ({
-            range: range.label,
-            count: products.filter(p => p.price >= range.min && p.price < range.max).length,
-            percentage: ((products.filter(p => p.price >= range.min && p.price < range.max).length / products.length) * 100).toFixed(1)
-          }));
-          break;
+          if (priceRangesData) {
+            const ranges = [
+              { label: 'Económico', min: 0, max: 200 },
+              { label: 'Medio-bajo', min: 200, max: 500 },
+              { label: 'Medio', min: 500, max: 1000 },
+              { label: 'Premium', min: 1000, max: 1500 },
+              { label: 'Luxury', min: 1500, max: Infinity }
+            ];
 
-        case 'compatibility-matrix':
-          data = products.flatMap(p => 
-            p.relations
-              .filter(r => r.type === 'compatible')
-              .map(r => ({
-                product: p.name,
-                compatibleWith: products.find(pr => pr.id === r.productId)?.name || r.productId,
-                reason: r.reason
-              }))
-          );
+            const totalProducts = priceRangesData.reduce((sum, s) => sum + s.total_productos, 0);
+
+            data = ranges.map(range => {
+              const count = priceRangesData.filter(
+                stat => stat.precio_promedio >= range.min && stat.precio_promedio < range.max
+              ).reduce((sum, stat) => sum + stat.total_productos, 0);
+
+              return {
+                range: range.label,
+                count,
+                percentage: totalProducts > 0 ? ((count / totalProducts) * 100).toFixed(1) : '0'
+              };
+            }).filter(r => r.count > 0);
+          }
           break;
       }
 
@@ -164,7 +139,7 @@ export function MarketAnalysisPanel() {
         data
       });
       setIsExecuting(false);
-    }, 800);
+    }, 300);
   };
 
   const currentQuery = predefinedQueries.find(q => q.id === selectedQuery);
@@ -259,10 +234,10 @@ export function MarketAnalysisPanel() {
                         <div key={key} className="flex justify-between items-center py-1">
                           <span className="text-muted-foreground capitalize">{key}:</span>
                           <span className="font-medium text-foreground">
-                            {key.includes('Price') || key.includes('price') 
-                              ? `$${value}` 
-                              : key.includes('percentage') 
-                                ? `${value}%` 
+                            {key.includes('Price') || key.includes('price')
+                              ? `$${value}`
+                              : key.includes('percentage')
+                                ? `${value}%`
                                 : String(value)}
                           </span>
                         </div>
@@ -285,33 +260,37 @@ export function MarketAnalysisPanel() {
           <Card className="border-border/50">
             <CardContent className="p-4 text-center">
               <TrendingUp className="h-6 w-6 mx-auto mb-2 text-compatible" />
-              <p className="text-2xl font-bold text-foreground">{products.length}</p>
+              <p className="text-2xl font-bold text-foreground">
+                {priceRangesData?.reduce((sum, s) => sum + s.total_productos, 0) || 0}
+              </p>
               <p className="text-xs text-muted-foreground">Productos en Ontología</p>
             </CardContent>
           </Card>
           <Card className="border-border/50">
             <CardContent className="p-4 text-center">
               <PieChart className="h-6 w-6 mx-auto mb-2 text-primary" />
-              <p className="text-2xl font-bold text-foreground">{categories.length}</p>
-              <p className="text-xs text-muted-foreground">Clases OWL</p>
+              <p className="text-2xl font-bold text-foreground">
+                {priceRangesData?.length || 0}
+              </p>
+              <p className="text-xs text-muted-foreground">Categorías</p>
             </CardContent>
           </Card>
           <Card className="border-border/50">
             <CardContent className="p-4 text-center">
               <BarChart3 className="h-6 w-6 mx-auto mb-2 text-equivalent" />
               <p className="text-2xl font-bold text-foreground">
-                {products.reduce((sum, p) => sum + p.relations.filter(r => r.type === 'equivalent').length, 0)}
+                {brandStatsData?.length || 0}
               </p>
-              <p className="text-xs text-muted-foreground">Equivalencias</p>
+              <p className="text-xs text-muted-foreground">Marcas</p>
             </CardContent>
           </Card>
           <Card className="border-border/50">
             <CardContent className="p-4 text-center">
               <Database className="h-6 w-6 mx-auto mb-2 text-info" />
               <p className="text-2xl font-bold text-foreground">
-                {products.reduce((sum, p) => sum + p.relations.filter(r => r.type === 'compatible').length, 0)}
+                ${marketOverviewData?.precio_promedio_global.toFixed(2) || '0.00'}
               </p>
-              <p className="text-xs text-muted-foreground">Compatibilidades</p>
+              <p className="text-xs text-muted-foreground">Precio Promedio</p>
             </CardContent>
           </Card>
         </div>

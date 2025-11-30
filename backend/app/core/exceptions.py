@@ -25,6 +25,10 @@ class OntologyLoadError(OntologyException):
     pass
 
 
+# Alias for backward compatibility
+OntologyNotFoundError = OntologyLoadError
+
+
 class OntologyValidationError(OntologyException):
     """Exception raised when ontology validation fails."""
     pass
@@ -57,6 +61,20 @@ class ReasonerInitializationError(ReasonerException):
 
 class ReasoningError(ReasonerException):
     """Exception raised when reasoning process fails."""
+    pass
+
+
+# Alias for backward compatibility
+ReasonerError = ReasonerException
+
+
+class ReasonerTimeoutError(ReasonerException):
+    """Exception raised when reasoner times out."""
+    pass
+
+
+class ReasonerInconsistencyError(ReasonerException):
+    """Exception raised when ontology is inconsistent."""
     pass
 
 

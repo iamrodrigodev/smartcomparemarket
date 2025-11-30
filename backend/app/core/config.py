@@ -24,8 +24,15 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
-        "http://localhost:8080"
+        "http://localhost:8080",
+        "http://localhost:8081"
     ]
+    
+    # Alias for backward compatibility
+    @property
+    def CORS_ORIGINS(self) -> list[str]:
+        return self.ALLOWED_ORIGINS
+
 
     # GraphDB/Stardog Configuration
     GRAPH_DB_URL: str = "http://localhost:7200"

@@ -1,0 +1,73 @@
+services:
+  # GraphDB - Triplestore para datos semanticos
+  graphdb:
+    image: ontotext/graphdb:10.7.3
+    container_name: smartcompare-graphdb
+    ports:
+      - "7200:7200"
+    environment:
+      - GDB_HEAP_SIZE=2g
+      - GDB_MIN_MEM=1g
+      - GDB_MAX_MEM=2g
+    volumes:
+      - graphdb-data:/opt/graphdb/home
+      - ./ontologies:/ontologies:ro
+    networks:
+      - smartcompare-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7200/rest/repositories"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Backend API - FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smartcompare-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - GRAPH_DB_URL=http://graphdb:7200
+      - GRAPH_DB_REPOSITORY=smartcomparemarket
+      - ONTOLOGY_FILE_PATH=/app/ontologies/SmartCompareMarket.owl
+      - ENABLE_REASONING=true
+      - DEBUG=true
+    volumes:
+      - ./backend:/app
+      - ./ontologies:/app/ontologies:ro
+    depends_on:
+      graphdb:
+        condition: service_healthy
+    networks:
+      - smartcompare-network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend - React + Vite
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smartcompare-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000/api/v1
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - smartcompare-network
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  graphdb-data:
+    driver: local
+
+networks:
+  smartcompare-network:
+    driver: bridge

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Header } from '@/components/marketplace/Header';
@@ -11,10 +11,14 @@ import { RecommendationSection } from '@/components/marketplace/RecommendationSe
 import { MarketAnalysisPanel } from '@/components/marketplace/MarketAnalysisPanel';
 import { OWLClassificationPanel } from '@/components/marketplace/OWLClassificationPanel';
 import { ConsistencyValidator } from '@/components/marketplace/ConsistencyValidator';
-import { products, categories, Product } from '@/data/mockProducts';
+import { categories, Product } from '@/data/mockProducts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { LayoutGrid, List } from 'lucide-react';
+import { LayoutGrid, List, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useProductSearch } from '@/hooks/useProducts';
+import { useRecommendations } from '@/hooks/useRecommendations';
+import { transformProductList } from '@/lib/transformers';
+import type { ProductSearchParams } from '@/types/api';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,47 +32,59 @@ const Index = () => {
   const [cartCount, setCartCount] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Filter products
-  const filteredProducts = useMemo(() => {
-    let result = [...products];
+  // Construir parámetros de búsqueda para el backend
+  const searchParams: ProductSearchParams = useMemo(() => {
+    const params: ProductSearchParams = {
+      page: 1,
+      page_size: 50,
+    };
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.brand.toLowerCase().includes(query) ||
-          p.description.toLowerCase().includes(query) ||
-          p.semanticTags.some((tag) => tag.toLowerCase().includes(query))
-      );
-    }
-
-    // Category filter
     if (selectedCategory) {
-      result = result.filter((p) => p.category === selectedCategory);
+      params.categoria = selectedCategory;
     }
 
-    // Brand filter
-    if (selectedBrands.length > 0) {
-      result = result.filter((p) => selectedBrands.includes(p.brand));
-    }
-
-    // Price filter
     if (selectedPriceRange) {
-      result = result.filter(
-        (p) => p.price >= selectedPriceRange.min && p.price <= selectedPriceRange.max
-      );
+      params.min_precio = selectedPriceRange.min;
+      params.max_precio = selectedPriceRange.max === Infinity ? undefined : selectedPriceRange.max;
     }
 
-    // Semantic tags filter
+    if (selectedBrands.length > 0) {
+      params.marca = selectedBrands[0]; // Backend soporta una marca a la vez
+    }
+
+    if (searchQuery) {
+      params.keyword = searchQuery;
+    }
+
+    return params;
+  }, [searchQuery, selectedCategory, selectedBrands, selectedPriceRange]);
+
+  // Consultar productos del backend
+  const { data: productsData, isLoading, error } = useProductSearch(searchParams);
+
+  // Transformar productos del backend al formato del frontend
+  const backendProducts = useMemo(() => {
+    if (!productsData?.items) return [];
+    return transformProductList(productsData.items);
+  }, [productsData]);
+
+  // Aplicar filtros locales que el backend no soporta (tags semánticos)
+  const filteredProducts = useMemo(() => {
+    let result = [...backendProducts];
+
+    // Filtro de tags semánticos (local)
     if (selectedSemanticTags.length > 0) {
       result = result.filter((p) =>
         selectedSemanticTags.some((tag) => p.semanticTags.includes(tag))
       );
     }
 
-    // Sorting
+    // Filtro de marcas múltiples (local, ya que backend solo soporta una)
+    if (selectedBrands.length > 1) {
+      result = result.filter((p) => selectedBrands.includes(p.brand));
+    }
+
+    // Ordenamiento local
     switch (sortBy) {
       case 'price-low':
         result.sort((a, b) => a.price - b.price);
@@ -88,19 +104,25 @@ const Index = () => {
     }
 
     return result;
-  }, [searchQuery, selectedCategory, selectedBrands, selectedPriceRange, selectedSemanticTags, sortBy]);
+  }, [backendProducts, selectedSemanticTags, selectedBrands, sortBy]);
 
-  // Get selected products for comparison
+  // Obtener productos seleccionados para comparación
   const selectedProducts = useMemo(
-    () => products.filter((p) => compareIds.includes(p.id)),
-    [compareIds]
+    () => filteredProducts.filter((p) => compareIds.includes(p.id)),
+    [filteredProducts, compareIds]
   );
 
-  // Recommendations (products with high ratings and relations)
-  const recommendations = useMemo(
-    () => products.filter((p) => p.rating >= 4.7 && p.relations.length > 0).slice(0, 5),
-    []
-  );
+  // Recomendaciones del backend (usando usuario de ejemplo)
+  const { data: recommendationsData } = useRecommendations('Comprador_Juan', 5);
+
+  // Transformar recomendaciones
+  const recommendations = useMemo(() => {
+    if (!recommendationsData?.items) {
+      // Fallback: productos con alto rating
+      return filteredProducts.filter((p) => p.rating >= 4.7).slice(0, 5);
+    }
+    return transformProductList(recommendationsData.items.map(r => r.producto));
+  }, [recommendationsData, filteredProducts]);
 
   const handleToggleCompare = (productId: string) => {
     setCompareIds((prev) => {
@@ -117,7 +139,7 @@ const Index = () => {
 
   const handleAddToCart = (productId: string) => {
     setCartCount((prev) => prev + 1);
-    const product = products.find((p) => p.id === productId);
+    const product = filteredProducts.find((p) => p.id === productId);
     toast.success(`${product?.name} añadido al carrito`);
   };
 
@@ -207,7 +229,24 @@ const Index = () => {
             </div>
 
             {/* Products */}
-            {filteredProducts.length > 0 ? (
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                <p className="text-muted-foreground">Cargando productos desde el backend...</p>
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-4">
+                <div className="text-center">
+                  <p className="text-destructive font-semibold mb-2">Error al cargar productos</p>
+                  <p className="text-sm text-muted-foreground">
+                    {error instanceof Error ? error.message : 'Error desconocido'}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Asegúrate de que el backend esté corriendo en http://localhost:8000
+                  </p>
+                </div>
+              </div>
+            ) : filteredProducts.length > 0 ? (
               <motion.div
                 layout
                 className={

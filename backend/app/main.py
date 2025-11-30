@@ -5,6 +5,7 @@ Punto de entrada de la API REST.
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.core.config import get_settings
 from app.core.exceptions import (
@@ -40,15 +41,15 @@ async def lifespan(app: FastAPI):
     - Cierra conexiones
     """
     # Startup
-    print("🚀 Iniciando SmartCompareMarket API...")
-    print(f"📍 Endpoint SPARQL: {settings.GRAPH_DB_URL}")
-    print(f"📚 Repositorio: {settings.GRAPH_DB_REPOSITORY}")
-    print(f"🧠 Razonamiento: {'Habilitado' if settings.ENABLE_REASONING else 'Deshabilitado'}")
+    print("Iniciando SmartCompareMarket API...")
+    print(f"Endpoint SPARQL: {settings.GRAPH_DB_URL}")
+    print(f"Repositorio: {settings.GRAPH_DB_REPOSITORY}")
+    print(f"Razonamiento: {'Habilitado' if settings.ENABLE_REASONING else 'Deshabilitado'}")
 
     yield
 
     # Shutdown
-    print("👋 Cerrando SmartCompareMarket API...")
+    print("Cerrando SmartCompareMarket API...")
 
 
 # ============================================================================
@@ -60,12 +61,12 @@ app = FastAPI(
     description="""
     # SmartCompareMarket API
 
-    API RESTful para marketplace semántico con capacidades de:
-    - 🔍 Búsqueda avanzada de productos
-    - ⚖️ Comparación inteligente de productos
-    - 🎯 Recomendaciones personalizadas usando SWRL
-    - 📊 Análisis de mercado y estadísticas
-    - 🧠 Razonamiento semántico con Pellet/FaCT++
+    API RESTful para marketplace semantico con capacidades de:
+    - Busqueda avanzada de productos
+    - Comparacion inteligente de productos
+    - Recomendaciones personalizadas usando SWRL
+    - Analisis de mercado y estadisticas
+    - Razonamiento semantico con Pellet/FaCT++
 
     ## Características principales:
 
@@ -129,30 +130,39 @@ app.add_middleware(
 @app.exception_handler(SmartCompareMarketException)
 async def smartcompare_exception_handler(request, exc: SmartCompareMarketException):
     """Handler para excepciones personalizadas de la aplicación."""
-    return ErrorResponse(
-        error=exc.message,
-        detail=str(exc.details) if exc.details else None,
-        code=exc.__class__.__name__
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": exc.message,
+            "detail": str(exc.details) if exc.details else None,
+            "code": exc.__class__.__name__
+        }
     )
 
 
 @app.exception_handler(OntologyException)
 async def ontology_exception_handler(request, exc: OntologyException):
     """Handler para excepciones de ontología."""
-    return ErrorResponse(
-        error=exc.message,
-        detail=str(exc.details) if exc.details else None,
-        code="ONTOLOGY_ERROR"
+    return JSONResponse(
+        status_code=503,
+        content={
+            "error": exc.message,
+            "detail": str(exc.details) if exc.details else None,
+            "code": "ONTOLOGY_ERROR"
+        }
     )
 
 
 @app.exception_handler(SPARQLException)
 async def sparql_exception_handler(request, exc: SPARQLException):
     """Handler para excepciones de SPARQL."""
-    return ErrorResponse(
-        error=exc.message,
-        detail=str(exc.details) if exc.details else None,
-        code="SPARQL_ERROR"
+    return JSONResponse(
+        status_code=503,
+        content={
+            "error": exc.message,
+            "detail": str(exc.details) if exc.details else None,
+            "code": "SPARQL_ERROR"
+        }
     )
 
 
