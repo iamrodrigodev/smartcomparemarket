@@ -7,6 +7,8 @@ from decimal import Decimal
 from datetime import datetime
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
+from app.domain import examples
+
 
 # ============================================================================
 # SCHEMAS DE PRODUCTO
@@ -43,7 +45,12 @@ class ProductResponse(ProductBase):
     uri: Optional[str] = None
     especificaciones: dict[str, Any] = Field(default_factory=dict)
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": examples.PRODUCT_EXAMPLE
+        }
+    )
 
 
 class ProductListResponse(BaseModel):
@@ -53,6 +60,12 @@ class ProductListResponse(BaseModel):
     page: int
     page_size: int
     total_pages: int
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.PRODUCT_LIST_EXAMPLE
+        }
+    )
 
 
 # ============================================================================
@@ -76,6 +89,12 @@ class ProductSearchParams(BaseModel):
                 raise ValueError('max_precio debe ser mayor que min_precio')
         return v
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.SEARCH_PARAMS_EXAMPLE
+        }
+    )
+
 
 # ============================================================================
 # SCHEMAS DE COMPARACIÓN
@@ -93,6 +112,12 @@ class ProductComparisonRequest(BaseModel):
             raise ValueError('Los IDs de productos deben ser únicos')
         return v
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.COMPARISON_REQUEST_EXAMPLE
+        }
+    )
+
 
 class ProductComparisonResponse(BaseModel):
     """Schema para respuesta de comparación."""
@@ -100,6 +125,12 @@ class ProductComparisonResponse(BaseModel):
     diferencias: dict[str, list[Any]]
     mejor_precio: ProductResponse
     timestamp: datetime = Field(default_factory=datetime.now)
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.COMPARISON_RESPONSE_EXAMPLE
+        }
+    )
 
 
 # ============================================================================
@@ -147,12 +178,24 @@ class RecommendationResponse(BaseModel):
     razon: str
     score: Optional[float] = None
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.RECOMMENDATION_RESPONSE_EXAMPLE
+        }
+    )
+
 
 class RecommendationListResponse(BaseModel):
     """Schema para lista de recomendaciones."""
     items: list[RecommendationResponse]
     usuario_id: str
     timestamp: datetime = Field(default_factory=datetime.now)
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.RECOMMENDATION_LIST_EXAMPLE
+        }
+    )
 
 
 # ============================================================================
@@ -168,6 +211,12 @@ class MarketStatsResponse(BaseModel):
     total_productos: int
     rango_precio: Decimal
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.MARKET_STATS_EXAMPLE
+        }
+    )
+
 
 class VendorStatsResponse(BaseModel):
     """Schema para estadísticas de vendedor."""
@@ -177,6 +226,12 @@ class VendorStatsResponse(BaseModel):
     precio_minimo: Decimal
     precio_maximo: Decimal
     precio_competitivo: bool
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.VENDOR_STATS_EXAMPLE
+        }
+    )
 
 
 class BrandStatsResponse(BaseModel):
@@ -224,6 +279,16 @@ class ErrorResponse(BaseModel):
     detail: Optional[str] = None
     code: Optional[str] = None
 
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                examples.ERROR_404_EXAMPLE,
+                examples.ERROR_400_EXAMPLE,
+                examples.ERROR_500_EXAMPLE
+            ]
+        }
+    )
+
 
 class HealthCheckResponse(BaseModel):
     """Schema para health check."""
@@ -232,3 +297,9 @@ class HealthCheckResponse(BaseModel):
     ontology_loaded: bool
     sparql_connected: bool
     reasoner_active: bool
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": examples.HEALTH_CHECK_EXAMPLE
+        }
+    )
