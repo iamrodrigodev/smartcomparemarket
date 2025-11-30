@@ -71,7 +71,7 @@ const Index = () => {
 
   // 5. Construir rangos de precios dinámicos basados en estadísticas
   const dynamicPriceRanges: PriceRange[] = useMemo(() => {
-    if (!categoryStats) return [];
+    if (!categoryStats || categoryStats.length === 0) return [];
 
     // Encontrar min y max global
     let min = Infinity;
@@ -84,15 +84,36 @@ const Index = () => {
 
     if (min === Infinity) return [];
 
+    // Si min y max son iguales o muy cercanos, devolver un solo rango
+    if (max - min < 5) {
+      return [
+        { id: 'all', label: 'Todos los precios', min: 0, max: Infinity },
+        { id: 'unique', label: `$${Math.round(min)} - $${Math.round(max)}`, min: min, max: max }
+      ];
+    }
+
     // Crear 4 rangos distribuidos
     const range = (max - min) / 4;
 
+    const r1 = Math.round(min + range);
+    const r2 = Math.round(min + range * 2);
+    const r3 = Math.round(min + range * 3);
+
+    // Evitar duplicados en labels si los redondeos coinciden
+    if (r1 === r2 || r2 === r3) {
+      return [
+        { id: 'all', label: 'Todos los precios', min: 0, max: Infinity },
+        { id: 'low', label: `Menos de $${Math.round((min + max) / 2)}`, min: 0, max: Math.round((min + max) / 2) },
+        { id: 'high', label: `Más de $${Math.round((min + max) / 2)}`, min: Math.round((min + max) / 2), max: Infinity },
+      ];
+    }
+
     return [
       { id: 'all', label: 'Todos los precios', min: 0, max: Infinity },
-      { id: 'range1', label: `Menos de $${Math.round(min + range)}`, min: 0, max: Math.round(min + range) },
-      { id: 'range2', label: `$${Math.round(min + range)} - $${Math.round(min + range * 2)}`, min: Math.round(min + range), max: Math.round(min + range * 2) },
-      { id: 'range3', label: `$${Math.round(min + range * 2)} - $${Math.round(min + range * 3)}`, min: Math.round(min + range * 2), max: Math.round(min + range * 3) },
-      { id: 'range4', label: `Más de $${Math.round(min + range * 3)}`, min: Math.round(min + range * 3), max: Infinity },
+      { id: 'range1', label: `Menos de $${r1}`, min: 0, max: r1 },
+      { id: 'range2', label: `$${r1} - $${r2}`, min: r1, max: r2 },
+      { id: 'range3', label: `$${r2} - $${r3}`, min: r2, max: r3 },
+      { id: 'range4', label: `Más de $${r3}`, min: r3, max: Infinity },
     ];
   }, [categoryStats]);
 
@@ -130,7 +151,10 @@ const Index = () => {
   // Transformar productos del backend al formato del frontend
   const backendProducts = useMemo(() => {
     if (!productsData?.items) return [];
-    return transformProductList(productsData.items);
+    const products = transformProductList(productsData.items);
+    // Deduplicar productos por ID para evitar errores de keys duplicadas
+    const uniqueProducts = Array.from(new Map(products.map(p => [p.id, p])).values());
+    return uniqueProducts;
   }, [productsData]);
 
   // Aplicar filtros locales que el backend no soporta (tags semánticos)
@@ -184,9 +208,11 @@ const Index = () => {
   const recommendations = useMemo(() => {
     if (!recommendationsData?.items) {
       // Fallback: productos con alto rating si no hay recomendaciones
-      return filteredProducts.filter((p) => p.rating >= 4.7).slice(0, 5);
+      const fallback = filteredProducts.filter((p) => p.rating >= 4.7).slice(0, 5);
+      return Array.from(new Map(fallback.map(p => [p.id, p])).values());
     }
-    return transformProductList(recommendationsData.items.map(r => r.producto));
+    const recs = transformProductList(recommendationsData.items.map(r => r.producto));
+    return Array.from(new Map(recs.map(p => [p.id, p])).values());
   }, [recommendationsData, filteredProducts]);
 
   const handleToggleCompare = (productId: string) => {

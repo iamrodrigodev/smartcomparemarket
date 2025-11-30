@@ -86,9 +86,9 @@ export function MarketAnalysisPanel() {
           if (priceRangesData) {
             data = priceRangesData.map(stat => ({
               category: stat.categoria,
-              avgPrice: stat.precio_promedio.toFixed(2),
-              minPrice: stat.precio_minimo.toFixed(2),
-              maxPrice: stat.precio_maximo.toFixed(2),
+              avgPrice: Number(stat.precio_promedio).toFixed(2),
+              minPrice: Number(stat.precio_minimo).toFixed(2),
+              maxPrice: Number(stat.precio_maximo).toFixed(2),
               productCount: stat.total_productos
             }));
           }
@@ -100,7 +100,7 @@ export function MarketAnalysisPanel() {
             data = brandStatsData.map(brand => ({
               brand: brand.marca,
               count: brand.total_productos,
-              avgPrice: brand.precio_promedio.toFixed(2),
+              avgPrice: Number(brand.precio_promedio).toFixed(2),
               percentage: total > 0 ? ((brand.total_productos / total) * 100).toFixed(1) : '0'
             }));
           }
@@ -288,7 +288,7 @@ export function MarketAnalysisPanel() {
             <CardContent className="p-4 text-center">
               <Database className="h-6 w-6 mx-auto mb-2 text-info" />
               <p className="text-2xl font-bold text-foreground">
-                ${marketOverviewData?.precio_promedio_global.toFixed(2) || '0.00'}
+                ${Number(marketOverviewData?.precio_promedio_global || 0).toFixed(2)}
               </p>
               <p className="text-xs text-muted-foreground">Precio Promedio</p>
             </CardContent>
